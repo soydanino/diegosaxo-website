@@ -1,16 +1,117 @@
-# React + Vite
+<div align="center">
+  <img src="./src/assets/DH_hero_desktop_V.png" alt="Diego Herrera — The Soul of the Saxophone" width="100%" style="max-height:480px; object-fit:cover; object-position:center 30%;" />
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+<br />
 
-Currently, two official plugins are available:
+<div align="center">
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# Diego Herrera — Portfolio Web
 
-## React Compiler
+Sitio web portfolio para el saxofonista Diego Herrera. Página de una sola hoja (SPA) con animaciones de entrada, partículas musicales y diseño oscuro con paleta dorada.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+</div>
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Tecnologias
+
+| Herramienta | Version | Rol |
+|---|---|---|
+| React | 19 | UI / componentes |
+| Vite | 8 | Bundler y dev server |
+| Tailwind CSS | 3 | Estilos utility-first |
+| GSAP | 3 | Animaciones de partículas |
+| Oxlint | 1 | Linter |
+
+## Estructura del proyecto
+
+```
+diegosaxo-website/
+├── public/
+│   ├── favicon.svg
+│   └── icons.svg
+├── src/
+│   ├── assets/
+│   │   └── DH_hero_desktop_V.png     # Imagen principal del hero
+│   ├── components/
+│   │   ├── Navbar.jsx                # Navegacion fija con menu movil
+│   │   ├── Hero.jsx                  # Seccion hero con particulas GSAP
+│   │   ├── Music.jsx                 # Ultimas releases con cards
+│   │   ├── Tours.jsx                 # Proximas fechas de conciertos
+│   │   └── Footer.jsx                # Pie de pagina con links sociales
+│   ├── hooks/
+│   │   └── useScrollReveal.js        # Hook reutilizable para animaciones de scroll
+│   ├── App.jsx
+│   ├── index.css                     # Estilos globales y clases de animacion
+│   └── main.jsx
+├── index.html
+├── tailwind.config.js                # Tokens de diseno (colores, tipografia, espaciado)
+├── vite.config.js
+└── package.json
+```
+
+## Empezar
+
+### Requisitos
+
+- Node.js >= 18
+
+### Instalacion y desarrollo
+
+```bash
+# Instalar dependencias
+npm install
+
+# Servidor de desarrollo con HMR
+npm run dev
+
+# Build de produccion
+npm run build
+
+# Vista previa del build
+npm run preview
+
+# Linting
+npm run lint
+```
+
+## Diseno
+
+El sistema de diseno esta definido en `tailwind.config.js` con tokens propios:
+
+- **Colores** — Paleta oscura (`#131313` base) con acento dorado (`#f2ca50` primario) y naranja (`#fd8b00` secundario)
+- **Tipografia** — Playfair Display (titulos) + Manrope (cuerpo), tamanhos con escala propia (`headline-lg`, `display-lg`, etc.)
+- **Espaciado** — Margenes y gaps semanticos (`margin-desktop`, `section-gap-desktop`, `gutter`)
+
+## Secciones
+
+<table>
+  <tr>
+    <th>Seccion</th>
+    <th>Descripcion</th>
+  </tr>
+  <tr>
+    <td><strong>Hero</strong></td>
+    <td>Imagen a pantalla completa con notas musicales flotantes animadas por GSAP y llamadas a la accion</td>
+  </tr>
+  <tr>
+    <td><strong>Music</strong></td>
+    <td>Grid de tres columnas con portadas de albums, titulo, ano y placeholder de embed de Spotify</td>
+  </tr>
+  <tr>
+    <td><strong>Tours</strong></td>
+    <td>Lista de proximas fechas con venue, ciudad y boton de compra de entradas</td>
+  </tr>
+  <tr>
+    <td><strong>Footer</strong></td>
+    <td>Logo, links de navegacion, iconos sociales y copyright</td>
+  </tr>
+</table>
+
+---
+
+<div align="center">
+  <sub>Desarrollado por <a href="https://github.com/soydanino">soydanino</a></sub>
+  <sub>- <a href="https://github.com/marco2712">marco2712</a></sub>
+</div>
