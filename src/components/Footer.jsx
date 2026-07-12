@@ -20,7 +20,7 @@ const Footer = () => {
           <a className="text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
         </div>
         <div className="font-label-md text-label-md text-on-surface-variant text-center md:text-right mt-8 md:mt-0">
-          © 2024 DIEGO HERRERA. ALL RIGHTS RESERVED.
+          &copy; {new Date().getFullYear()} DIEGO HERRERA. ALL RIGHTS RESERVED.
         </div>
       </div>
     </footer>
