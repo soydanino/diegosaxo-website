@@ -86,7 +86,7 @@ Solo dos componentes reciben JavaScript en el cliente:
 
 El resto (`Music`, `Tours`, `Footer`) se genera como HTML puro en tiempo de build. Sin hidratacion, sin JS en esas secciones.
 
-## Diseno
+## Diseño
 
 El sistema de diseno esta definido en `tailwind.config.js` con tokens propios:
 
