@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.jsx';
+import Hero from '../components/Hero.jsx';
+import Music from '../components/Music.astro';
+import Tours from '../components/Tours.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar client:load />
+  <Hero client:load />
+  <Music />
+  <Tours />
+  <Footer />
+</Layout>
