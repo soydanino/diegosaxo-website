@@ -1,27 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const Tours = () => {
-  useEffect(() => {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll('#tours .scroll-reveal');
-    elements.forEach(el => observer.observe(el));
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  useScrollReveal('tours');
 
   return (
     <section className="py-section-gap-mobile md:py-section-gap-desktop bg-surface-container-lowest" id="tours">
