@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import heroImage from '../assets/DH_hero_desktop_V.png';
+const heroImage = '/DH_hero_desktop_V.png';
 import gsap from 'gsap';
 
 const Hero = () => {
