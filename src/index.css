@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  }
+}
+
+@layer utilities {
+  .floating-note {
+    pointer-events: none;
+    position: absolute;
+    z-index: 10;
+    opacity: 0.4;
+    color: #f2ca50; /* Primary gold color */
+  }
+
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .spotify-card-hover {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .spotify-card-hover:hover {
+    transform: translateY(-8px);
+    background-color: #1f1f1f;
+  }
+
+  .tour-row {
+    transition: border-color 0.3s ease;
+  }
+  
+  .tour-row:hover {
+    border-color: rgba(242, 202, 80, 0.5);
+  }
+}
