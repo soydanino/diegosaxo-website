@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./src/assets/DH_hero_desktop_V.png" alt="Diego Herrera — The Soul of the Saxophone" width="100%" style="max-height:480px; object-fit:cover; object-position:center 30%;" />
+  <img src="./public/DH_hero_desktop_V.png" alt="Diego Herrera — The Soul of the Saxophone" width="100%" style="max-height:480px; object-fit:cover; object-position:center 30%;" />
 </div>
 
 <br />
@@ -8,7 +8,7 @@
 
 # Diego Herrera — Portfolio Web
 
-Sitio web portfolio para el saxofonista Diego Herrera. Página de una sola hoja (SPA) con animaciones de entrada, partículas musicales y diseño oscuro con paleta dorada.
+Sitio web portfolio para el saxofonista Diego Herrera. Pagina estatica generada con Astro (SSG) con componentes React solo donde hay interactividad real (islands architecture).
 
 </div>
 
@@ -18,10 +18,10 @@ Sitio web portfolio para el saxofonista Diego Herrera. Página de una sola hoja 
 
 | Herramienta | Version | Rol |
 |---|---|---|
-| React | 19 | UI / componentes |
-| Vite | 8 | Bundler y dev server |
+| Astro | 5 | Framework SSG + islands architecture |
+| React | 19 | Islands interactivos (Navbar, Hero) |
 | Tailwind CSS | 3 | Estilos utility-first |
-| GSAP | 3 | Animaciones de partículas |
+| GSAP | 3 | Animaciones de particulas en Hero |
 | Oxlint | 1 | Linter |
 
 ## Estructura del proyecto
@@ -29,25 +29,24 @@ Sitio web portfolio para el saxofonista Diego Herrera. Página de una sola hoja 
 ```
 diegosaxo-website/
 ├── public/
+│   ├── DH_hero_desktop_V.png         # Imagen principal del hero
 │   ├── favicon.svg
 │   └── icons.svg
 ├── src/
-│   ├── assets/
-│   │   └── DH_hero_desktop_V.png     # Imagen principal del hero
 │   ├── components/
-│   │   ├── Navbar.jsx                # Navegacion fija con menu movil
-│   │   ├── Hero.jsx                  # Seccion hero con particulas GSAP
-│   │   ├── Music.jsx                 # Ultimas releases con cards
-│   │   ├── Tours.jsx                 # Proximas fechas de conciertos
-│   │   └── Footer.jsx                # Pie de pagina con links sociales
-│   ├── hooks/
-│   │   └── useScrollReveal.js        # Hook reutilizable para animaciones de scroll
-│   ├── App.jsx
-│   ├── index.css                     # Estilos globales y clases de animacion
-│   └── main.jsx
-├── index.html
+│   │   ├── Navbar.jsx                # Island React (client:load) — menu movil
+│   │   ├── Hero.jsx                  # Island React (client:load) — particulas GSAP
+│   │   ├── Music.astro               # HTML estatico — cards de albums
+│   │   ├── Tours.astro               # HTML estatico — fechas de conciertos
+│   │   └── Footer.astro              # HTML estatico — pie de pagina
+│   ├── layouts/
+│   │   └── Layout.astro              # Shell HTML + IntersectionObserver global
+│   ├── pages/
+│   │   └── index.astro               # Unica pagina — orquesta todos los componentes
+│   └── styles/
+│       └── global.css                # Tailwind directives + clases de animacion
+├── astro.config.mjs                  # Configuracion de Astro e integraciones
 ├── tailwind.config.js                # Tokens de diseno (colores, tipografia, espaciado)
-├── vite.config.js
 └── package.json
 ```
 
@@ -66,7 +65,7 @@ npm install
 # Servidor de desarrollo con HMR
 npm run dev
 
-# Build de produccion
+# Build de produccion (genera HTML estatico en /dist)
 npm run build
 
 # Vista previa del build
@@ -76,12 +75,23 @@ npm run preview
 npm run lint
 ```
 
+## Islands Architecture
+
+Solo dos componentes reciben JavaScript en el cliente:
+
+| Componente | Directiva | Motivo |
+|---|---|---|
+| `Navbar.jsx` | `client:load` | Estado del menu hamburguesa en movil |
+| `Hero.jsx` | `client:load` | Animaciones GSAP de particulas musicales |
+
+El resto (`Music`, `Tours`, `Footer`) se genera como HTML puro en tiempo de build. Sin hidratacion, sin JS en esas secciones.
+
 ## Diseno
 
 El sistema de diseno esta definido en `tailwind.config.js` con tokens propios:
 
 - **Colores** — Paleta oscura (`#131313` base) con acento dorado (`#f2ca50` primario) y naranja (`#fd8b00` secundario)
-- **Tipografia** — Playfair Display (titulos) + Manrope (cuerpo), tamanhos con escala propia (`headline-lg`, `display-lg`, etc.)
+- **Tipografia** — Playfair Display (titulos) + Manrope (cuerpo), con escala propia (`headline-lg`, `display-lg`, etc.)
 - **Espaciado** — Margenes y gaps semanticos (`margin-desktop`, `section-gap-desktop`, `gutter`)
 
 ## Secciones
@@ -89,22 +99,27 @@ El sistema de diseno esta definido en `tailwind.config.js` con tokens propios:
 <table>
   <tr>
     <th>Seccion</th>
+    <th>Tipo</th>
     <th>Descripcion</th>
   </tr>
   <tr>
     <td><strong>Hero</strong></td>
-    <td>Imagen a pantalla completa con notas musicales flotantes animadas por GSAP y llamadas a la accion</td>
+    <td>Island React</td>
+    <td>Imagen a pantalla completa con notas musicales flotantes animadas por GSAP</td>
   </tr>
   <tr>
     <td><strong>Music</strong></td>
-    <td>Grid de tres columnas con portadas de albums, titulo, ano y placeholder de embed de Spotify</td>
+    <td>HTML estatico</td>
+    <td>Grid de tres columnas con portadas de albums y placeholder de Spotify</td>
   </tr>
   <tr>
     <td><strong>Tours</strong></td>
-    <td>Lista de proximas fechas con venue, ciudad y boton de compra de entradas</td>
+    <td>HTML estatico</td>
+    <td>Lista de proximas fechas con venue, ciudad y boton de entradas</td>
   </tr>
   <tr>
     <td><strong>Footer</strong></td>
+    <td>HTML estatico</td>
     <td>Logo, links de navegacion, iconos sociales y copyright</td>
   </tr>
 </table>
