@@ -1,34 +1,180 @@
 ---
 const year = new Date().getFullYear();
+
+const navLinks = [
+  { label: 'Music', href: '#music' },
+  { label: 'Tours', href: '#tours' },
+  { label: 'About', href: '#about' },
+  { label: 'Privacy', href: '#' },
+  { label: 'Contact', href: '#' },
+];
+
+const socialLinks = [
+  { icon: 'headphones', label: 'Spotify', href: '#' },
+  { icon: 'photo_camera', label: 'Instagram', href: '#' },
+  { icon: 'play_circle', label: 'YouTube', href: '#' },
+  { icon: 'mail', label: 'Email', href: '#' },
+];
 ---
 
-<footer class="bg-surface-container-lowest border-t border-outline-variant/20">
-  <div class="flex flex-col md:flex-row justify-between items-center gap-base px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto py-section-gap-mobile md:py-section-gap-desktop">
-    <div class="flex flex-col gap-4 items-center md:items-start">
-      <div class="font-display-lg text-headline-md text-primary">DIEGO HERRERA</div>
-      <div class="flex gap-6 mt-2">
-        <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
-          <span class="material-symbols-outlined">radio</span>
-        </a>
-        <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
-          <span class="material-symbols-outlined">share</span>
-        </a>
-        <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
-          <span class="material-symbols-outlined">mail</span>
-        </a>
+<!-- ===================== DESKTOP FOOTER ===================== -->
+<footer class="hidden md:block bg-surface-container-lowest">
+
+  <!-- Gold accent line -->
+  <div class="h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"></div>
+
+  <!-- Main content -->
+  <div class="max-w-7xl mx-auto px-margin-desktop py-20 grid grid-cols-3 gap-16">
+
+    <!-- Col 1: Brand -->
+    <div class="flex flex-col justify-between">
+      <div>
+        <p class="font-display-lg text-[40px] leading-[1] tracking-tighter text-primary mb-3">
+          DIEGO<br/>HERRERA
+        </p>
+        <p class="font-label-md text-label-md text-on-surface-variant tracking-widest uppercase mt-4">
+          The Soul of the Saxophone
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 mt-10">
+        {socialLinks.map(({ icon, label, href }) => (
+          <a
+            href={href}
+            class="group flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors w-fit"
+          >
+            <span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">
+              {icon}
+            </span>
+            <span class="font-label-md text-label-md tracking-widest uppercase">{label}</span>
+          </a>
+        ))}
       </div>
     </div>
 
-    <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 font-label-md text-label-md">
-      <a class="text-on-surface-variant hover:text-secondary transition-colors" href="#music">Music</a>
-      <a class="text-on-surface-variant hover:text-secondary transition-colors" href="#tours">Tours</a>
-      <a class="text-on-surface-variant hover:text-secondary transition-colors" href="#about">About</a>
-      <a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy</a>
-      <a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+    <!-- Col 2: Navigation -->
+    <div class="flex flex-col">
+      <p class="font-label-md text-label-md text-outline tracking-[0.2em] uppercase mb-8">Navigate</p>
+      <div class="h-px bg-outline-variant/30 mb-8"></div>
+      <nav class="flex flex-col gap-5">
+        {navLinks.map(({ label, href }) => (
+          <a
+            href={href}
+            class="font-headline-md text-[22px] leading-none text-on-surface-variant hover:text-on-surface hover:translate-x-2 transition-all duration-200"
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
     </div>
 
-    <div class="font-label-md text-label-md text-on-surface-variant text-center md:text-right mt-8 md:mt-0">
-      &copy; {year} DIEGO HERRERA. ALL RIGHTS RESERVED.
+    <!-- Col 3: Book a Show -->
+    <div class="flex flex-col justify-between">
+      <div>
+        <p class="font-label-md text-label-md text-outline tracking-[0.2em] uppercase mb-8">Book a Show</p>
+        <div class="h-px bg-outline-variant/30 mb-8"></div>
+        <p class="font-body-lg text-body-lg text-on-surface-variant mb-2 leading-relaxed">
+          Available for concerts, private events and collaborations worldwide.
+        </p>
+        <a
+          href="mailto:booking@diegoherrera.com"
+          class="font-label-md text-label-md text-primary hover:underline tracking-widest block mt-4"
+        >
+          booking@diegoherrera.com
+        </a>
+      </div>
+      <a
+        href="#"
+        class="group mt-10 inline-flex items-center justify-between bg-primary text-on-primary px-8 py-4 font-label-md text-label-md uppercase tracking-widest hover:brightness-110 transition-all"
+      >
+        <span>Book Now</span>
+        <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform ml-4">
+          arrow_forward
+        </span>
+      </a>
     </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-outline-variant/20">
+    <div class="max-w-7xl mx-auto px-margin-desktop py-6 flex justify-between items-center">
+      <span class="font-label-md text-label-md text-outline tracking-widest">
+        &copy; {year} DIEGO HERRERA
+      </span>
+      <span class="font-label-md text-label-md text-outline tracking-widest">
+        ALL RIGHTS RESERVED
+      </span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ===================== MOBILE FOOTER ===================== -->
+<footer class="md:hidden bg-surface-container-lowest">
+
+  <!-- Gold accent line -->
+  <div class="h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"></div>
+
+  <!-- Brand block -->
+  <div class="px-margin-mobile pt-14 pb-10 text-center border-b border-outline-variant/20">
+    <p class="font-display-lg text-[52px] leading-[0.9] tracking-tighter text-primary mb-4">
+      DIEGO<br/>HERRERA
+    </p>
+    <p class="font-label-md text-label-md text-on-surface-variant tracking-[0.2em] uppercase">
+      The Soul of the Saxophone
+    </p>
+
+    <!-- Social icons -->
+    <div class="flex justify-center gap-8 mt-10">
+      {socialLinks.map(({ icon, label, href }) => (
+        <a
+          href={href}
+          aria-label={label}
+          class="flex flex-col items-center gap-2 text-on-surface-variant hover:text-primary transition-colors active:scale-95"
+        >
+          <span class="material-symbols-outlined text-[28px]">{icon}</span>
+          <span class="font-label-md text-[11px] tracking-widest uppercase text-outline">{label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="px-margin-mobile py-8 border-b border-outline-variant/20">
+    <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6 leading-relaxed">
+      Available for concerts, private events and collaborations worldwide.
+    </p>
+    <a
+      href="#"
+      class="group flex items-center justify-center gap-3 w-full bg-primary text-on-primary py-5 font-label-md text-label-md uppercase tracking-widest hover:brightness-110 active:brightness-90 transition-all"
+    >
+      <span>Book a Show</span>
+      <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">
+        arrow_forward
+      </span>
+    </a>
+  </div>
+
+  <!-- Navigation grid -->
+  <div class="px-margin-mobile py-10 border-b border-outline-variant/20">
+    <p class="font-label-md text-label-md text-outline tracking-[0.2em] uppercase text-center mb-8">
+      Navigate
+    </p>
+    <nav class="grid grid-cols-2 gap-x-8 gap-y-5">
+      {navLinks.map(({ label, href }) => (
+        <a
+          href={href}
+          class="font-headline-md text-[20px] leading-none text-on-surface-variant hover:text-primary active:text-primary transition-colors py-1"
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <!-- Bottom -->
+  <div class="px-margin-mobile py-8 text-center">
+    <span class="font-label-md text-label-md text-outline tracking-widest">
+      &copy; {year} DIEGO HERRERA. ALL RIGHTS RESERVED.
+    </span>
   </div>
 </footer>
