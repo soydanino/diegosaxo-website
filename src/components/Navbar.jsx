@@ -1,54 +1,163 @@
 import React, { useState, useEffect } from 'react';
 
+const NAV_LINKS = [
+  { href: '#music',  label: 'Music',  icon: 'music_note',     section: 'music'  },
+  { href: '#tours',  label: 'Tours',  icon: 'calendar_month', section: 'tours'  },
+  { href: '#reels',  label: 'Reels',  icon: 'play_circle',    section: 'reels'  },
+  { href: '#about',  label: 'About',  icon: 'person',         section: 'about'  },
+];
+
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
+  const [scrolled, setScrolled]           = useState(false);
 
-  // Prevent scrolling when mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const closeMenu = () => setIsOpen(false);
+  useEffect(() => {
+    const sections = NAV_LINKS
+      .map(({ section }) => document.getElementById(section))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { threshold: 0.25, rootMargin: '0px 0px -50% 0px' }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  const isHome = activeSection === null;
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-transparent">
-        <div className="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto relative z-50">
-          <div className="font-display-lg text-headline-md tracking-tighter text-primary">DIEGO HERRERA</div>
-          <div className="hidden md:flex gap-8 items-center">
-            <a className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#music">Music</a>
-            <a className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#tours">Tours</a>
-            <a className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#about">About</a>
-            <button className="bg-primary text-on-primary px-6 py-2 font-label-md text-label-md rounded-none scale-95 active:opacity-80 transition-transform uppercase tracking-widest">Book Now</button>
-          </div>
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-primary p-2">
-              <span className="material-symbols-outlined text-3xl">
-                {isOpen ? 'close' : 'menu'}
-              </span>
-            </button>
-          </div>
-        </div>
+      {/* ── Desktop: pill navbar ─────────────────────────────────── */}
+      <nav
+        aria-label="Main navigation"
+        className={`hidden md:flex fixed top-5 left-1/2 -translate-x-1/2 z-50 items-center gap-1 border transition-all duration-500 rounded-[9999px] ${
+          scrolled
+            ? 'px-3 py-2 bg-surface-container/90 backdrop-blur-2xl border-outline-variant/60 shadow-xl shadow-black/40'
+            : 'px-8 py-2 bg-surface-container/55 backdrop-blur-md border-outline-variant/30 shadow-lg shadow-black/20'
+        }`}
+      >
+        {/* Brand */}
+        <a
+          href="#"
+          className={`font-display-lg text-[14px] tracking-tighter text-primary py-2.5 mr-1 whitespace-nowrap hover:opacity-75 transition-all duration-500 ${scrolled ? 'px-5' : 'px-7'}`}
+        >
+          DIEGO HERRERA
+        </a>
+
+        <span className="w-px h-4 bg-outline-variant/50 mx-1 shrink-0" />
+
+        {/* Links */}
+        {NAV_LINKS.map(({ href, label, section }) => (
+          <a
+            key={section}
+            href={href}
+            className={`py-2.5 font-label-md text-label-md whitespace-nowrap transition-all duration-500 rounded-[9999px] ${
+              scrolled ? 'px-5' : 'px-7'
+            } ${
+              activeSection === section
+                ? 'bg-primary/15 text-primary'
+                : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/70'
+            }`}
+          >
+            {label}
+          </a>
+        ))}
+
+        {/* CTA */}
+        <a
+          href="mailto:booking@diegoherrera.com"
+          className={`ml-2 bg-primary text-on-primary py-2.5 font-label-md text-label-md uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all whitespace-nowrap rounded-[9999px] ${scrolled ? 'px-6' : 'px-8'}`}
+        >
+          Book Now
+        </a>
       </nav>
 
-      {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 bg-background/95 backdrop-blur-lg z-40 transition-opacity duration-300 md:hidden flex flex-col items-center justify-center gap-10 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      {/* ── Mobile: bottom navigation bar ────────────────────────── */}
+      <nav
+        aria-label="Mobile navigation"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface-container/85 backdrop-blur-2xl border-t border-outline-variant/25"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       >
-        <a onClick={closeMenu} className="font-display-lg text-display-md text-on-surface hover:text-primary transition-colors" href="#music">Music</a>
-        <a onClick={closeMenu} className="font-display-lg text-display-md text-on-surface hover:text-primary transition-colors" href="#tours">Tours</a>
-        <a onClick={closeMenu} className="font-display-lg text-display-md text-on-surface hover:text-primary transition-colors" href="#about">About</a>
-        <button onClick={closeMenu} className="bg-primary text-on-primary px-10 py-4 mt-4 font-label-md text-label-lg rounded-none uppercase tracking-widest">Book Now</button>
-      </div>
+        <div className="flex items-center justify-around px-1 pt-2 pb-1">
+          {/* Home */}
+          <MobileTab
+            href="#"
+            label="Home"
+            icon="home"
+            active={isHome}
+          />
+
+          {NAV_LINKS.map(({ href, label, icon, section }) => (
+            <MobileTab
+              key={section}
+              href={href}
+              label={label}
+              icon={icon}
+              active={activeSection === section}
+            />
+          ))}
+
+          {/* Book */}
+          <MobileTab
+            href="mailto:booking@diegoherrera.com"
+            label="Book"
+            icon="mail"
+            active={false}
+            highlight
+          />
+        </div>
+      </nav>
     </>
   );
 };
+
+const MobileTab = ({ href, label, icon, active, highlight = false }) => (
+  <a
+    href={href}
+    className={`flex flex-col items-center justify-center gap-0.5 min-w-[52px] py-1 px-2 transition-all duration-200 ${
+      highlight
+        ? 'text-primary'
+        : active
+          ? 'text-primary'
+          : 'text-on-surface-variant'
+    }`}
+  >
+    {/* Icon with indicator pill */}
+    <span className="relative flex items-center justify-center">
+      <span
+        className={`absolute inset-0 -inset-x-3 rounded-[9999px] transition-all duration-300 ${
+          active ? 'bg-primary/15' : 'bg-transparent'
+        }`}
+      />
+      <span
+        className={`material-symbols-outlined relative transition-all duration-200 ${
+          active ? 'text-[24px]' : 'text-[22px]'
+        }`}
+        style={{
+          fontVariationSettings: active || highlight
+            ? "'FILL' 1, 'wght' 400"
+            : "'FILL' 0, 'wght' 300",
+        }}
+      >
+        {icon}
+      </span>
+    </span>
+    <span className={`font-label-md text-[10px] tracking-wide transition-all duration-200 ${active ? 'font-semibold' : ''}`}>
+      {label}
+    </span>
+  </a>
+);
 
 export default Navbar;
