@@ -17,6 +17,15 @@
   }
 }
 
+@keyframes scroll-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.animate-scroll-line {
+  animation: scroll-line 1.6s ease-in-out infinite;
+}
+
 @layer utilities {
   .scroll-reveal {
     opacity: 0;
