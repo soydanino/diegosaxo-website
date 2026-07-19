@@ -5,40 +5,45 @@ const projects = [
     title: 'Luna de Fuego',
     category: 'Video Clip',
     description: 'Jazz Afroperuano',
+    thumb: '/thumbnails/fuego-diego-herrera.jpg',
   },
   {
     id: 'Mg1xSKNOvYk',
     title: 'Silent Beach',
     category: 'Live',
     description: 'Live at Berklee',
+    thumb: '/thumbnails/silent-beach.jpg',
   },
   {
     id: 'Yo1OvY9nJmo',
     title: 'Lima Tour II',
     category: 'Live',
     description: 'Live at Cocodrilo Verde',
+    thumb: '/thumbnails/lima-tour-2.jpg',
   },
   {
     id: '06KJh9r6S6M',
     title: 'Amazing Mirror',
     category: 'Live',
     description: 'Live at La Noche de Barranco',
+    thumb: '/thumbnails/amazing-mirror.jpg',
   },
   {
     id: 'BeJTky4FbZ0',
     title: 'Flor Nocturna',
     category: 'Live',
     description: 'Live at Cocodrilo Verde',
+    thumb: '/thumbnails/flor-nocturna.jpg',
   },
   {
     id: '_aqSXa1wBSE',
     title: 'Ashia',
     category: 'Studio',
     description: 'Afro-Peruvian Jazz',
+    thumb: '/thumbnails/ashia.jpg',
   },
 ];
 
-const thumb = (id: string) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 const watchUrl = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 
 const badgeClass: Record<string, string> = {
@@ -88,7 +93,7 @@ const badgeClass: Record<string, string> = {
           <!-- Thumbnail -->
           <div class={`relative overflow-hidden ${i === 0 ? 'aspect-video' : 'aspect-video'}`}>
             <img
-              src={thumb(p.id)}
+              src={p.thumb}
               alt={p.title}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               loading="lazy"
