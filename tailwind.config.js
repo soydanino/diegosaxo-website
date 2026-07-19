@@ -72,11 +72,11 @@ export default {
       "fontFamily": {
         "sans": ["Manrope", "sans-serif"],
         "label-md": ["Manrope", "sans-serif"],
-        "display-lg": ["Playfair Display", "serif"],
-        "headline-lg-mobile": ["Playfair Display", "serif"],
-        "headline-md": ["Playfair Display", "serif"],
+        "display-lg": ["Manrope", "sans-serif"],
+        "headline-lg-mobile": ["Manrope", "sans-serif"],
+        "headline-md": ["Manrope", "sans-serif"],
         "body-lg": ["Manrope", "sans-serif"],
-        "headline-lg": ["Playfair Display", "serif"],
+        "headline-lg": ["Manrope", "sans-serif"],
         "body-md": ["Manrope", "sans-serif"]
       },
       "fontSize": {
