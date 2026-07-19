@@ -5,6 +5,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  body {
+    font-family: 'Manrope', sans-serif;
   }
 
   .material-symbols-outlined {
