@@ -13,14 +13,6 @@
 }
 
 @layer utilities {
-  .floating-note {
-    pointer-events: none;
-    position: absolute;
-    z-index: 10;
-    opacity: 0.4;
-    color: #f2ca50;
-  }
-
   .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -46,6 +38,6 @@
   }
 
   .tour-row:hover {
-    border-color: rgba(242, 202, 80, 0.5);
+    border-color: rgba(112, 6, 74, 0.5);
   }
 }
