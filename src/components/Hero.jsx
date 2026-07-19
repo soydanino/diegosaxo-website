@@ -46,8 +46,8 @@ const Hero = () => {
       stagger: 0.05,
       scrollTrigger: {
         trigger: hero,
-        start: 'top top',
-        end:   '45% top',
+        start: '35% top',
+        end:   '75% top',
         scrub: 1,
       },
     });
@@ -72,8 +72,8 @@ const Hero = () => {
       </div>
 
       {/* Text content */}
-      <div className="relative z-20 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto w-full md:flex md:justify-end">
-        <div className="max-w-2xl mt-10 md:mt-20">
+      <div className="relative z-20 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto w-full">
+        <div className="max-w-2xl mt-10 md:mt-0">
           <h1 ref={titleRef} className="font-display-lg text-[64px] md:text-[120px] leading-[0.9] text-primary mb-4 tracking-tighter will-change-transform">
             Diego<br />Herrera
           </h1>
