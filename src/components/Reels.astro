@@ -7,36 +7,48 @@ const reels = [
     accent: '#70064A',
     label: 'En vivo · Blue Note',
     duration: '0:48',
+    views: '12K',
+    bars: [40, 70, 55, 85, 45, 90, 60, 75, 50, 80],
   },
   {
     gradient: 'from-[#0a000a] via-[#3d0030] to-[#0a000a]',
     accent: '#D5A0C0',
     label: 'Improvización nocturna',
     duration: '1:12',
+    views: '8.4K',
+    bars: [60, 45, 80, 35, 95, 50, 70, 40, 85, 55],
   },
   {
     gradient: 'from-[#0e0e0e] via-[#250018] to-[#0e0e0e]',
     accent: '#70064A',
     label: 'Backstage · Tokio',
     duration: '0:34',
+    views: '21K',
+    bars: [75, 50, 90, 60, 40, 80, 55, 95, 45, 70],
   },
   {
     gradient: 'from-[#0a0a0a] via-[#380028] to-[#0a0a0a]',
     accent: '#D5A0C0',
     label: 'Session de estudio',
     duration: '0:57',
+    views: '6.1K',
+    bars: [50, 85, 40, 70, 60, 45, 90, 55, 75, 35],
   },
   {
     gradient: 'from-[#0e0e0e] via-[#2a001f] to-[#0e0e0e]',
     accent: '#70064A',
     label: 'Concierto · Madrid',
     duration: '1:03',
+    views: '34K',
+    bars: [85, 60, 40, 75, 55, 90, 45, 70, 80, 50],
   },
   {
     gradient: 'from-[#0a000a] via-[#3d0030] to-[#0a000a]',
     accent: '#D5A0C0',
     label: 'Jazz en las calles',
     duration: '0:41',
+    views: '15K',
+    bars: [55, 80, 65, 45, 90, 70, 40, 85, 50, 75],
   },
 ];
 ---
@@ -44,12 +56,11 @@ const reels = [
 <section class="py-section-gap-mobile md:py-section-gap-desktop bg-surface-container-lowest" id="reels">
   <div class="px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
 
-    {/* Header */}
+    <!-- Header -->
     <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div>
         <div class="flex items-center gap-3 mb-3">
-          {/* Instagram wordmark icon */}
-          <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
           </svg>
           <a
@@ -62,7 +73,7 @@ const reels = [
           </a>
         </div>
         <h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-2">Últimos Reels</h2>
-        <div class="w-20 h-1 bg-primary"></div>
+        <div class="w-20 h-[2px] bg-primary"></div>
       </div>
 
       <a
@@ -76,67 +87,180 @@ const reels = [
       </a>
     </div>
 
-    {/* Reels grid — horizontal scroll on mobile, grid on desktop */}
-    <div class="relative">
-      {/* Fade edge on desktop right side */}
-      <div class="hidden md:block absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
+    <!-- Desktop grid -->
+    <div class="hidden md:grid md:grid-cols-6 gap-4">
+      {reels.map((reel, i) => (
+        <a
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="scroll-reveal group relative overflow-hidden cursor-pointer ring-1 ring-white/5 hover:ring-primary/40 transition-all duration-300 hover:-translate-y-1"
+          style={`animation-delay: ${i * 80}ms`}
+        >
+          <div class={`aspect-[9/16] bg-gradient-to-b ${reel.gradient} relative overflow-hidden`}>
 
-      <div class="flex gap-4 overflow-x-auto md:grid md:grid-cols-6 md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory md:snap-none scrollbar-none -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
-        {reels.map((reel, i) => (
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="scroll-reveal group relative shrink-0 w-[52vw] md:w-auto snap-start overflow-hidden cursor-pointer"
-            style={`animation-delay: ${i * 80}ms`}
-          >
-            {/* Card */}
-            <div class={`aspect-[9/16] bg-gradient-to-b ${reel.gradient} relative overflow-hidden`}>
+            <!-- Noise -->
+            <div class="absolute inset-0 opacity-[0.05]"
+              style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 150px;">
+            </div>
 
-              {/* Noise texture overlay */}
-              <div class="absolute inset-0 opacity-[0.04]"
-                style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 150px;">
-              </div>
+            <!-- Accent glow -->
+            <div
+              class="absolute inset-0 opacity-25 group-hover:opacity-40 transition-opacity duration-500"
+              style={`background: radial-gradient(ellipse at 50% 65%, ${reel.accent}66 0%, transparent 68%)`}
+            ></div>
 
-              {/* Accent glow */}
-              <div
-                class="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
-                style={`background: radial-gradient(ellipse at 50% 60%, ${reel.accent}55 0%, transparent 70%)`}
-              ></div>
+            <!-- EQ bars decorative -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-end gap-[3px] opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+              {reel.bars.map((h) => (
+                <div
+                  class="w-[3px] rounded-full"
+                  style={`height: ${h * 0.6}px; background: ${reel.accent};`}
+                ></div>
+              ))}
+            </div>
 
-              {/* Musical note decorative */}
-              <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[64px] opacity-10 select-none pointer-events-none">
-                ♪
-              </div>
-
-              {/* Play button */}
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-black/60 transition-all duration-300">
-                  <span
-                    class="material-symbols-outlined text-white text-[28px] ml-0.5"
-                    style="font-variation-settings: 'FILL' 1"
-                  >
-                    play_arrow
-                  </span>
-                </div>
-              </div>
-
-              {/* Duration badge */}
-              <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                <span class="font-label-md text-[11px] text-white/90">{reel.duration}</span>
-              </div>
-
-              {/* Bottom gradient + label */}
-              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-8 pb-3 px-3">
-                <p class="font-label-md text-[12px] text-white/90 leading-tight">{reel.label}</p>
+            <!-- Play button -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="relative w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-white/15 flex items-center justify-center group-hover:scale-110 group-hover:bg-black/70 group-hover:border-white/30 transition-all duration-300">
+                <span
+                  class="material-symbols-outlined text-white text-[22px] ml-0.5"
+                  style="font-variation-settings: 'FILL' 1"
+                >
+                  play_arrow
+                </span>
               </div>
             </div>
-          </a>
+
+            <!-- Duration -->
+            <div class="absolute top-2.5 right-2.5 bg-black/60 backdrop-blur-sm px-2 py-0.5">
+              <span class="font-label-md text-[10px] text-white/80 tracking-wider">{reel.duration}</span>
+            </div>
+
+            <!-- Views -->
+            <div class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-0.5">
+              <span class="material-symbols-outlined text-white/70 text-[12px]" style="font-variation-settings: 'FILL' 0">visibility</span>
+              <span class="font-label-md text-[10px] text-white/80 tracking-wider">{reel.views}</span>
+            </div>
+
+            <!-- Bottom info -->
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-10 pb-3 px-3">
+              <p class="font-label-md text-[11px] text-white/90 leading-tight tracking-wide">{reel.label}</p>
+              <!-- Mini waveform -->
+              <div class="flex items-end gap-[2px] mt-2 opacity-50">
+                {reel.bars.slice(0, 8).map((h) => (
+                  <div
+                    class="w-[2px] rounded-full bg-white/70"
+                    style={`height: ${Math.max(3, h * 0.12)}px;`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Mobile carousel -->
+    <div class="md:hidden relative" id="reels-carousel">
+      <div class="overflow-hidden -mx-margin-mobile">
+        <div
+          id="reels-track"
+          class="flex transition-transform duration-500 ease-out will-change-transform"
+          style="gap: 12px; padding: 0 20px;"
+        >
+          {reels.map((reel, i) => (
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative shrink-0 overflow-hidden ring-1 ring-white/5 cursor-pointer"
+              style="width: calc(80vw); max-width: 300px;"
+            >
+              <div class={`aspect-[9/16] bg-gradient-to-b ${reel.gradient} relative overflow-hidden`}>
+
+                <!-- Noise -->
+                <div class="absolute inset-0 opacity-[0.05]"
+                  style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 150px;">
+                </div>
+
+                <!-- Accent glow -->
+                <div
+                  class="absolute inset-0 opacity-30"
+                  style={`background: radial-gradient(ellipse at 50% 65%, ${reel.accent}66 0%, transparent 68%)`}
+                ></div>
+
+                <!-- EQ bars decorative -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-end gap-[4px] opacity-12">
+                  {reel.bars.map((h) => (
+                    <div
+                      class="w-[4px] rounded-full"
+                      style={`height: ${h * 0.9}px; background: ${reel.accent};`}
+                    ></div>
+                  ))}
+                </div>
+
+                <!-- Play button -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="relative">
+                    <!-- Pulse ring -->
+                    <div
+                      class="absolute inset-0 rounded-full animate-ping opacity-20"
+                      style={`background: ${reel.accent};`}
+                    ></div>
+                    <div class="relative w-16 h-16 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                      <span
+                        class="material-symbols-outlined text-white text-[30px] ml-0.5"
+                        style="font-variation-settings: 'FILL' 1"
+                      >
+                        play_arrow
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Duration -->
+                <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm px-2 py-1">
+                  <span class="font-label-md text-[11px] text-white/80 tracking-wider">{reel.duration}</span>
+                </div>
+
+                <!-- Views -->
+                <div class="absolute top-3 left-3 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1">
+                  <span class="material-symbols-outlined text-white/70 text-[13px]" style="font-variation-settings: 'FILL' 0">visibility</span>
+                  <span class="font-label-md text-[11px] text-white/80 tracking-wider">{reel.views}</span>
+                </div>
+
+                <!-- Bottom info -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-12 pb-4 px-4">
+                  <p class="font-label-md text-[13px] text-white leading-tight tracking-wide">{reel.label}</p>
+                  <div class="flex items-end gap-[3px] mt-2 opacity-50">
+                    {reel.bars.slice(0, 10).map((h) => (
+                      <div
+                        class="w-[3px] rounded-full bg-white/70"
+                        style={`height: ${Math.max(3, h * 0.16)}px;`}
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Dot indicators -->
+      <div class="flex justify-center gap-2 mt-5" id="reels-dots">
+        {reels.map((_, i) => (
+          <button
+            class={`reel-dot h-[3px] rounded-full transition-all duration-300 ${i === 0 ? 'w-6 bg-primary' : 'w-2 bg-white/25'}`}
+            data-index={i}
+            aria-label={`Reel ${i + 1}`}
+          ></button>
         ))}
       </div>
     </div>
 
-    {/* Mobile CTA */}
+    <!-- Mobile CTA -->
     <div class="mt-8 flex md:hidden">
       <a
         href={INSTAGRAM_URL}
@@ -152,12 +276,128 @@ const reels = [
   </div>
 </section>
 
+<script>
+  (function () {
+    const carousel = document.getElementById('reels-carousel');
+    if (!carousel) return;
+
+    // Only run on mobile
+    if (window.innerWidth >= 768) return;
+
+    const track = document.getElementById('reels-track') as HTMLElement;
+    const dots = document.querySelectorAll<HTMLElement>('.reel-dot');
+    const cards = track.querySelectorAll<HTMLElement>('a');
+    const total = cards.length;
+    let current = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    function getOffset(index: number): number {
+      // Get the actual position of each card
+      const card = cards[index];
+      const trackRect = track.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      return cardRect.left - trackRect.left + track.scrollLeft - parseInt(getComputedStyle(track).paddingLeft || '20');
+    }
+
+    function goTo(index: number) {
+      current = ((index % total) + total) % total;
+      const card = cards[current];
+      const cardWidth = card.offsetWidth + 12; // width + gap
+      track.style.transform = `translateX(-${current * cardWidth}px)`;
+
+      dots.forEach((dot, i) => {
+        if (i === current) {
+          dot.style.width = '24px';
+          dot.style.backgroundColor = '#921F5D';
+          dot.style.opacity = '1';
+        } else {
+          dot.style.width = '8px';
+          dot.style.backgroundColor = 'rgba(255,255,255,0.25)';
+          dot.style.opacity = '1';
+        }
+      });
+    }
+
+    function startAutoplay() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), 3000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(timer);
+    }
+
+    // Dot clicks
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.dataset.index || '0');
+        goTo(index);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    let touchStartTime = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
+      isDragging = true;
+      stopAutoplay();
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      const elapsed = Date.now() - touchStartTime;
+      if (Math.abs(diff) > 40 || (Math.abs(diff) > 20 && elapsed < 250)) {
+        goTo(diff > 0 ? current + 1 : current - 1);
+      }
+      startAutoplay();
+    }, { passive: true });
+
+    // Prevent link navigation on swipe
+    cards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        const diff = Math.abs(touchStartX - (e as MouseEvent).clientX);
+        if (diff > 5) e.preventDefault();
+      });
+    });
+
+    // Init
+    goTo(0);
+    startAutoplay();
+
+    // Pause on page visibility change
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay();
+      else startAutoplay();
+    });
+  })();
+</script>
+
 <style>
-  .scrollbar-none {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  #reels-track {
+    transform: translateX(0);
   }
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
+
+  @keyframes eq-pulse {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+  }
+
+  .animate-ping {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
   }
 </style>
