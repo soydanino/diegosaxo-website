@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
-  { href: '#music',  label: 'Music',  icon: 'music_note',     section: 'music'  },
-  { href: '#tours',  label: 'Tours',  icon: 'calendar_month', section: 'tours'  },
-  { href: '#reels',  label: 'Reels',  icon: 'play_circle',    section: 'reels'  },
-  { href: '#about',  label: 'About',  icon: 'person',         section: 'about'  },
+  { href: '#music',    label: 'Music',    icon: 'music_note',     section: 'music'    },
+  { href: '#tours',    label: 'Tours',    icon: 'calendar_month', section: 'tours'    },
+  { href: '#projects', label: 'Projects', icon: 'play_circle',    section: 'projects' },
+  { href: '#reels',    label: 'Reels',    icon: 'reel',           section: 'reels'    },
 ];
 
 const Navbar = () => {
