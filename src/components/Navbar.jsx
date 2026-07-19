@@ -4,7 +4,7 @@ const NAV_LINKS = [
   { href: '#music',    label: 'Music',    icon: 'music_note',     section: 'music'    },
   { href: '#tours',    label: 'Tours',    icon: 'calendar_month', section: 'tours'    },
   { href: '#projects', label: 'Projects', icon: 'play_circle',    section: 'projects' },
-  { href: '#reels',    label: 'Reels',    icon: 'reel',           section: 'reels'    },
+  { href: '#reels',    label: 'Reels',    icon: 'reel',           section: 'reels',   desktopOnly: true },
 ];
 
 const Navbar = () => {
@@ -51,7 +51,7 @@ const Navbar = () => {
         {/* Brand */}
         <a
           href="#"
-          className={`font-display-lg text-[14px] tracking-tighter text-primary py-2.5 mr-1 whitespace-nowrap hover:opacity-75 transition-all duration-500 ${scrolled ? 'px-5' : 'px-7'}`}
+          className={`font-display-lg text-[14px] tracking-tighter text-white py-2.5 mr-1 whitespace-nowrap hover:opacity-75 transition-all duration-500 ${scrolled ? 'px-3' : 'px-4'}`}
         >
           DIEGO HERRERA
         </a>
@@ -99,7 +99,7 @@ const Navbar = () => {
             active={isHome}
           />
 
-          {NAV_LINKS.map(({ href, label, icon, section }) => (
+          {NAV_LINKS.filter(l => !l.desktopOnly).map(({ href, label, icon, section }) => (
             <MobileTab
               key={section}
               href={href}
