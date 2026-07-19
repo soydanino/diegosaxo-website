@@ -31,7 +31,7 @@ export default {
         "on-secondary-container": "#603100",
         "primary-fixed-dim": "#D5A0C0",
         "on-error": "#690005",
-        "surface-tint": "#70064A",
+        "surface-tint": "#921F5D",
         "on-background": "#e2e2e2",
         "surface-container-low": "#1b1b1b",
         "primary-container": "#FFD8EF",
@@ -50,7 +50,7 @@ export default {
         "on-tertiary-container": "#254188",
         "on-secondary": "#4d2600",
         "secondary": "#ffb77d",
-        "primary": "#70064A",
+        "primary": "#921F5D",
         "tertiary": "#bfcdff",
         "on-error-container": "#ffdad6",
         "tertiary-fixed-dim": "#b4c5ff"
