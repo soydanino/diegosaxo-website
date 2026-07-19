@@ -70,13 +70,14 @@ export default {
         "section-gap-desktop": "120px"
       },
       "fontFamily": {
-        "label-md": ["Manrope"],
-        "display-lg": ["Playfair Display"],
-        "headline-lg-mobile": ["Playfair Display"],
-        "headline-md": ["Playfair Display"],
-        "body-lg": ["Manrope"],
-        "headline-lg": ["Playfair Display"],
-        "body-md": ["Manrope"]
+        "sans": ["Manrope", "sans-serif"],
+        "label-md": ["Manrope", "sans-serif"],
+        "display-lg": ["Playfair Display", "serif"],
+        "headline-lg-mobile": ["Playfair Display", "serif"],
+        "headline-md": ["Playfair Display", "serif"],
+        "body-lg": ["Manrope", "sans-serif"],
+        "headline-lg": ["Playfair Display", "serif"],
+        "body-md": ["Manrope", "sans-serif"]
       },
       "fontSize": {
         "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600"}],
