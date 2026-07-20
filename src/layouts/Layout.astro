@@ -29,6 +29,57 @@ const { title = 'Diego Herrera | The Soul of the Saxophone' } = Astro.props;
     <slot />
 
     <script>
+      import { translations, languageEvent } from '../i18n.js';
+
+      const translationLookup = [];
+      translations.forEach(([english, spanish]) => {
+        translationLookup.push([english, { en: english, es: spanish }]);
+        translationLookup.push([spanish, { en: english, es: spanish }]);
+      });
+      translationLookup.sort(([a], [b]) => b.length - a.length);
+
+      const translateValue = (value, language) => {
+        const match = translationLookup.find(([source]) => value.includes(source));
+        return match ? value.replace(match[0], match[1][language]) : value;
+      };
+
+      const translatePage = (language) => {
+        document.documentElement.lang = language;
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        let node;
+
+        while ((node = walker.nextNode())) {
+          if (node.parentElement?.closest('script, style')) continue;
+          const value = node.nodeValue ?? '';
+          node.nodeValue = translateValue(value, language);
+        }
+
+        document.querySelectorAll('[aria-label], [alt], [title], [placeholder]').forEach((element) => {
+          ['aria-label', 'alt', 'title', 'placeholder'].forEach((attribute) => {
+            const value = element.getAttribute(attribute);
+            if (value) element.setAttribute(attribute, translateValue(value, language));
+          });
+        });
+      };
+
+      const setSiteLanguage = (language) => {
+        const nextLanguage = language === 'es' ? 'es' : 'en';
+        localStorage.setItem('site-language', nextLanguage);
+        translatePage(nextLanguage);
+        window.dispatchEvent(new CustomEvent(languageEvent, { detail: nextLanguage }));
+      };
+
+      window.setSiteLanguage = setSiteLanguage;
+      window.applySiteLanguage = () => translatePage(document.documentElement.lang === 'es' ? 'es' : 'en');
+
+      const savedLanguage = localStorage.getItem('site-language');
+      const initialLanguage = savedLanguage === 'en' || savedLanguage === 'es'
+        ? savedLanguage
+        : (navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en');
+
+      window.setSiteLanguage(initialLanguage);
+      window.addEventListener('load', () => translatePage(initialLanguage), { once: true });
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
