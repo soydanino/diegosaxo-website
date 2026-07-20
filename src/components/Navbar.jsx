@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
-  { href: '#music',    label: 'Music',    icon: 'music_note',     section: 'music'    },
-  { href: '#tours',    label: 'Tours',    icon: 'calendar_month', section: 'tours'    },
-  { href: '#projects', label: 'Projects', icon: 'play_circle',    section: 'projects' },
-  { href: '#reels',    label: 'Reels',    icon: 'reel',           section: 'reels',   desktopOnly: true },
+  { href: '#music',    en: 'Music',    es: 'Música',    icon: 'music_note',     section: 'music'    },
+  { href: '#tours',    en: 'Tours',    es: 'Giras',     icon: 'calendar_month', section: 'tours'    },
+  { href: '#projects', en: 'Projects', es: 'Proyectos', icon: 'play_circle',    section: 'projects' },
+  { href: '#reels',    en: 'Reels',    es: 'Reels',     icon: 'reel',           section: 'reels',   desktopOnly: true },
 ];
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState(null);
   const [scrolled, setScrolled]           = useState(false);
+  const [language, setLanguage]           = useState('en');
+
+  useEffect(() => {
+    const syncLanguage = (event) => setLanguage(event.detail);
+    setLanguage(document.documentElement.lang === 'es' ? 'es' : 'en');
+    window.addEventListener('site-language-change', syncLanguage);
+    return () => window.removeEventListener('site-language-change', syncLanguage);
+  }, []);
+
+  const toggleLanguage = () => {
+    window.setSiteLanguage?.(language === 'en' ? 'es' : 'en');
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -41,7 +53,7 @@ const Navbar = () => {
     <>
       {/* ── Desktop: pill navbar ─────────────────────────────────── */}
       <nav
-        aria-label="Main navigation"
+        aria-label={language === 'es' ? 'Navegación principal' : 'Main navigation'}
         className={`hidden md:flex fixed top-5 left-1/2 -translate-x-1/2 z-50 items-center gap-1 border transition-all duration-500 rounded-[9999px] ${
           scrolled
             ? 'px-3 py-2 bg-surface-container/90 backdrop-blur-2xl border-outline-variant/60 shadow-xl shadow-black/40'
@@ -59,7 +71,7 @@ const Navbar = () => {
         <span className="w-px h-4 bg-outline-variant/50 mx-1 shrink-0" />
 
         {/* Links */}
-        {NAV_LINKS.map(({ href, label, section }) => (
+        {NAV_LINKS.map(({ href, en, es, section }) => (
           <a
             key={section}
             href={href}
@@ -71,7 +83,7 @@ const Navbar = () => {
                 : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/70'
             }`}
           >
-            {label}
+            {language === 'es' ? es : en}
           </a>
         ))}
 
@@ -80,30 +92,47 @@ const Navbar = () => {
           href="mailto:booking@diegoherrera.com"
           className={`ml-2 bg-primary text-on-primary py-2.5 font-label-md text-label-md uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all whitespace-nowrap rounded-[9999px] ${scrolled ? 'px-6' : 'px-8'}`}
         >
-          Book Now
+          {language === 'es' ? 'Reservar ahora' : 'Book Now'}
         </a>
+
+        <button
+          type="button"
+          onClick={toggleLanguage}
+          aria-label={language === 'es' ? 'Cambiar idioma a inglés' : 'Switch language to Spanish'}
+          className="ml-1 px-3 py-2 text-[11px] font-semibold tracking-wider text-on-surface-variant hover:text-primary transition-colors rounded-[9999px] border border-outline-variant/50"
+        >
+          {language === 'es' ? 'EN' : 'ES'}
+        </button>
       </nav>
 
       {/* ── Mobile: bottom navigation bar ────────────────────────── */}
       <nav
-        aria-label="Mobile navigation"
+        aria-label={language === 'es' ? 'Navegación móvil' : 'Mobile navigation'}
         className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface-container/85 backdrop-blur-2xl border-t border-outline-variant/25"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
       >
+        <button
+          type="button"
+          onClick={toggleLanguage}
+          aria-label={language === 'es' ? 'Cambiar idioma a inglés' : 'Switch language to Spanish'}
+          className="absolute right-3 bottom-full mb-3 bg-surface-container/90 backdrop-blur-xl border border-outline-variant/50 text-on-surface px-3 py-2 rounded-[9999px] text-[11px] font-semibold tracking-wider shadow-lg"
+        >
+          {language === 'es' ? 'EN' : 'ES'}
+        </button>
         <div className="flex items-center justify-around px-1 pt-2 pb-1">
           {/* Home */}
           <MobileTab
             href="#"
-            label="Home"
+            label={language === 'es' ? 'Inicio' : 'Home'}
             icon="home"
             active={isHome}
           />
 
-          {NAV_LINKS.filter(l => !l.desktopOnly).map(({ href, label, icon, section }) => (
+          {NAV_LINKS.filter(l => !l.desktopOnly).map(({ href, en, es, icon, section }) => (
             <MobileTab
               key={section}
               href={href}
-              label={label}
+              label={language === 'es' ? es : en}
               icon={icon}
               active={activeSection === section}
             />
@@ -112,7 +141,7 @@ const Navbar = () => {
           {/* Book */}
           <MobileTab
             href="mailto:booking@diegoherrera.com"
-            label="Book"
+            label={language === 'es' ? 'Reservar' : 'Book'}
             icon="mail"
             active={false}
             highlight
