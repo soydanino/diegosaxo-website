@@ -89,7 +89,7 @@ const Navbar = () => {
 
         {/* CTA */}
         <a
-          href="mailto:booking@diegoherrera.com"
+          href="mailto:contact@diegosaxo.com"
           className={`ml-2 bg-primary text-on-primary py-2.5 font-label-md text-label-md uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all whitespace-nowrap rounded-[9999px] ${scrolled ? 'px-6' : 'px-8'}`}
         >
           {language === 'es' ? 'Reservar ahora' : 'Book Now'}
@@ -154,7 +154,7 @@ const Navbar = () => {
 
           {/* Book */}
           <MobileTab
-            href="mailto:booking@diegoherrera.com"
+            href="mailto:contact@diegosaxo.com"
             label={language === 'es' ? 'Reservar' : 'Book'}
             icon="mail"
             active={false}
