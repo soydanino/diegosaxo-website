@@ -80,23 +80,24 @@ const badgeClass: Record<string, string> = {
     </div>
 
     <!-- Grid: first card featured (2 cols), rest 3-col -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
 
       {projects.map((p, i) => (
         <a
           href={watchUrl(p.id)}
           target="_blank"
           rel="noopener noreferrer"
+          data-project-card
+          data-project-index={i}
           class={`scroll-reveal group relative block overflow-hidden bg-black ring-1 ring-white/5 hover:ring-primary/40 transition-all duration-300 leading-none ${i === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}
-          style={`animation-delay:${i * 80}ms`}
+          style={`animation-delay:${i * 80}ms;${i >= 5 ? 'display:none;' : ''}`}
         >
           <!-- Thumbnail -->
-          <div class={`relative overflow-hidden ${i === 0 ? 'aspect-video' : 'aspect-video'}`}>
-            <img
-              src={p.thumb}
-              alt={p.title}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              loading="lazy"
+          <div class={`relative overflow-hidden aspect-[8/5] ${i === 0 ? 'lg:aspect-[16/5]' : ''}`}>
+            <div
+              data-project-image
+              class="absolute inset-0 group-hover:scale-105 transition-transform duration-700 ease-out"
+              style={`background-image: url('${p.thumb}'); background-size: cover; background-position: center top; background-repeat: no-repeat;`}
             />
 
             <!-- Gradient: always dark at bottom, intensifies on hover -->
@@ -105,7 +106,7 @@ const badgeClass: Record<string, string> = {
             <!-- Top row -->
             <div class="absolute top-3 left-3 right-3 flex items-start justify-between">
               <!-- Category badge -->
-              <span class={`font-label-md text-[10px] uppercase tracking-widest px-2.5 py-1 ${badgeClass[p.category] ?? 'bg-surface-container text-on-surface'}`}>
+              <span data-project-category class={`font-label-md text-[10px] uppercase tracking-widest px-2.5 py-1 ${badgeClass[p.category] ?? 'bg-surface-container text-on-surface'}`}>
                 {p.category}
               </span>
 
@@ -133,11 +134,11 @@ const badgeClass: Record<string, string> = {
 
             <!-- Bottom info -->
             <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class={`font-sans text-white font-semibold leading-tight ${i === 0 ? 'text-[20px]' : 'text-[16px]'}`}>
+              <h3 data-project-title class={`font-sans text-white font-semibold leading-tight ${i === 0 ? 'text-[20px]' : 'text-[16px]'}`}>
                 {p.title}
               </h3>
               <div class="flex items-center justify-between mt-1.5">
-                <p class="font-label-md text-[12px] text-white/55 tracking-wide">{p.description}</p>
+                <p data-project-description class="font-label-md text-[12px] text-white/55 tracking-wide">{p.description}</p>
                 <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
                   <span class="font-label-md text-[11px] text-primary uppercase tracking-widest">Watch</span>
                   <span class="material-symbols-outlined text-primary text-[15px]">arrow_forward</span>
@@ -152,3 +153,61 @@ const badgeClass: Record<string, string> = {
 
   </div>
 </section>
+
+<script define:vars={{ projects, badgeClass }}>
+  const cards = Array.from(document.querySelectorAll('[data-project-card]')).slice(0, 5);
+  let waitingProject = 5;
+  let slotToReplace = 0;
+
+  const updateCard = (card, projectIndex) => {
+    const project = projects[projectIndex];
+    const category = card.querySelector('[data-project-category]');
+
+    card.href = `https://www.youtube.com/watch?v=${project.id}`;
+    card.dataset.projectIndex = String(projectIndex);
+    card.setAttribute('aria-label', `Watch ${project.title} on YouTube`);
+    card.querySelector('[data-project-image]').style.backgroundImage = `url('${project.thumb}')`;
+    card.querySelector('[data-project-title]').textContent = project.title;
+    card.querySelector('[data-project-description]').textContent = project.description;
+    category.textContent = project.category;
+    category.className = `font-label-md text-[10px] uppercase tracking-widest px-2.5 py-1 ${badgeClass[project.category] ?? 'bg-surface-container text-on-surface'}`;
+  };
+
+  if (cards.length === 5 && projects.length > 5) {
+    const rotation = window.setInterval(() => {
+      const card = cards[slotToReplace];
+      const outgoingProject = Number(card.dataset.projectIndex);
+
+      card.classList.add('project-card-leaving');
+
+      window.setTimeout(() => {
+        updateCard(card, waitingProject);
+        waitingProject = outgoingProject;
+        slotToReplace = (slotToReplace + 1) % cards.length;
+        card.classList.remove('project-card-leaving');
+        card.classList.add('project-card-entering');
+        window.requestAnimationFrame(() => card.classList.remove('project-card-entering'));
+      }, 350);
+    }, 5000);
+
+    window.addEventListener('pagehide', () => window.clearInterval(rotation), { once: true });
+  }
+</script>
+
+<style>
+  [data-project-card] {
+    transition: opacity 350ms ease, transform 350ms ease, box-shadow 300ms ease;
+  }
+
+  .project-card-leaving,
+  .project-card-entering {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-project-card] {
+      transition-duration: 1ms;
+    }
+  }
+</style>
