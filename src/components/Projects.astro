@@ -80,7 +80,7 @@ const badgeClass: Record<string, string> = {
     </div>
 
     <!-- Grid: first card featured (2 cols), rest 3-col -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+    <div data-project-carousel class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
 
       {projects.map((p, i) => (
         <a
@@ -90,7 +90,7 @@ const badgeClass: Record<string, string> = {
           data-project-card
           data-project-index={i}
           class={`scroll-reveal group relative block overflow-hidden bg-black ring-1 ring-white/5 hover:ring-primary/40 transition-all duration-300 leading-none ${i === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}
-          style={`animation-delay:${i * 80}ms;${i >= 5 ? 'display:none;' : ''}`}
+          style={`animation-delay:${i * 80}ms`}
         >
           <!-- Thumbnail -->
           <div class={`relative overflow-hidden aspect-[8/5] ${i === 0 ? 'lg:aspect-[16/5]' : ''}`}>
@@ -155,7 +155,11 @@ const badgeClass: Record<string, string> = {
 </section>
 
 <script define:vars={{ projects, badgeClass }}>
-  const cards = Array.from(document.querySelectorAll('[data-project-card]')).slice(0, 5);
+  const carousel = document.querySelector('[data-project-carousel]');
+  const allCards = Array.from(document.querySelectorAll('[data-project-card]'));
+  const cards = allCards.slice(0, 5);
+  const desktopQuery = window.matchMedia('(min-width: 768px)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let waitingProject = 5;
   let slotToReplace = 0;
 
@@ -173,7 +177,7 @@ const badgeClass: Record<string, string> = {
     category.className = `font-label-md text-[10px] uppercase tracking-widest px-2.5 py-1 ${badgeClass[project.category] ?? 'bg-surface-container text-on-surface'}`;
   };
 
-  if (cards.length === 5 && projects.length > 5) {
+  if (desktopQuery.matches && cards.length === 5 && projects.length > 5) {
     const rotation = window.setInterval(() => {
       const card = cards[slotToReplace];
       const outgoingProject = Number(card.dataset.projectIndex);
@@ -192,6 +196,44 @@ const badgeClass: Record<string, string> = {
 
     window.addEventListener('pagehide', () => window.clearInterval(rotation), { once: true });
   }
+
+  if (!desktopQuery.matches && carousel && allCards.length > 1 && !reducedMotion.matches) {
+    let activeSlide = 0;
+    let autoplay;
+
+    const goToSlide = (index) => {
+      activeSlide = (index + allCards.length) % allCards.length;
+      const card = allCards[activeSlide];
+      carousel.scrollTo({
+        left: card.offsetLeft - carousel.offsetLeft,
+        behavior: 'smooth',
+      });
+    };
+
+    const stopAutoplay = () => window.clearInterval(autoplay);
+    const startAutoplay = () => {
+      stopAutoplay();
+      autoplay = window.setInterval(() => goToSlide(activeSlide + 1), 4000);
+    };
+
+    let scrollTimer;
+    carousel.addEventListener('scroll', () => {
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        activeSlide = allCards.reduce((closest, card, index) => {
+          const currentDistance = Math.abs(card.offsetLeft - carousel.offsetLeft - carousel.scrollLeft);
+          const closestDistance = Math.abs(allCards[closest].offsetLeft - carousel.offsetLeft - carousel.scrollLeft);
+          return currentDistance < closestDistance ? index : closest;
+        }, 0);
+      }, 100);
+    }, { passive: true });
+
+    carousel.addEventListener('pointerdown', stopAutoplay);
+    carousel.addEventListener('pointerup', startAutoplay);
+    carousel.addEventListener('pointercancel', startAutoplay);
+    window.addEventListener('pagehide', stopAutoplay, { once: true });
+    startAutoplay();
+  }
 </script>
 
 <style>
@@ -203,6 +245,34 @@ const badgeClass: Record<string, string> = {
   .project-card-entering {
     opacity: 0;
     transform: translateY(12px) scale(0.985);
+  }
+
+  @media (max-width: 767px) {
+    [data-project-carousel] {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      padding-inline: 6%;
+      margin-inline: -6%;
+    }
+
+    [data-project-carousel]::-webkit-scrollbar {
+      display: none;
+    }
+
+    [data-project-card] {
+      flex: 0 0 88%;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+    }
+  }
+
+  @media (min-width: 768px) {
+    [data-project-card]:nth-child(n + 6) {
+      display: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
