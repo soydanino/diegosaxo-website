@@ -191,6 +191,7 @@ const badgeClass: Record<string, string> = {
         card.classList.remove('project-card-leaving');
         card.classList.add('project-card-entering');
         window.requestAnimationFrame(() => card.classList.remove('project-card-entering'));
+        window.applySiteLanguage?.();
       }, 350);
     }, 5000);
 
