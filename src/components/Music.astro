@@ -1,65 +1,217 @@
 ---
+const musicProfiles = [
+  {
+    label: 'Apple Music',
+    href: 'https://music.apple.com/pe/artist/diego-herrera/1725599287?l=en-GB',
+    path: 'M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.5c1.2.07 2.04.66 2.75.71 1.06-.22 2.07-.85 3.21-.77 1.37.11 2.4.65 3.08 1.63-2.83 1.7-2.16 5.43.44 6.48-.52 1.36-1.2 2.71-1.48 4.73zM12.03 7.25C11.88 5.23 13.53 3.56 15.41 3.4c.26 2.34-2.12 4.09-3.38 3.85z',
+  },
+  {
+    label: 'Spotify',
+    href: 'https://open.spotify.com/intl-es/artist/2WvWwDzQzo7JeHh0fFe0eI?nd=1&dlsi=80ea477f9a934667',
+    path: 'M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z',
+  },
+  {
+    label: 'Bandcamp',
+    href: 'https://diegoherrera.bandcamp.com/album/midnight-call',
+    path: 'M0 18.75h17.143L24 5.25H6.857L0 18.75z',
+  },
+];
 ---
 
 <section class="py-section-gap-mobile md:py-section-gap-desktop px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto" id="music">
-  <div class="mb-16">
-    <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">Latest Releases</h2>
-    <div class="w-20 h-1 bg-primary"></div>
+  <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div>
+      <div class="flex items-center gap-2 mb-3 text-on-surface-variant">
+        <span class="material-symbols-outlined text-primary text-[18px]">campaign</span>
+        <span class="font-label-md text-[11px] uppercase tracking-[0.22em]">Press & Highlights</span>
+      </div>
+      <h2 class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">Latest News</h2>
+      <div class="w-20 h-1 bg-primary"></div>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-lg">
+        Stories, milestones and moments from Diego's musical journey.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3" aria-label="Music profiles">
+      {musicProfiles.map(({ label, href, path }) => (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={label}
+          class="group inline-flex items-center gap-2.5 border border-outline-variant/60 bg-surface-container-low px-4 py-2.5 rounded-[6px] text-on-surface-variant hover:text-primary hover:border-primary/60 hover:-translate-y-0.5 transition-all"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 shrink-0 group-hover:scale-110 transition-transform" aria-hidden="true">
+            <path d={path} />
+          </svg>
+          <span class="font-label-md text-[12px] tracking-wider">{label}</span>
+        </a>
+      ))}
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-    <div class="scroll-reveal spotify-card-hover bg-surface-container-low p-6 border-t-2 border-primary-container shadow-2xl">
-      <div class="mb-6 aspect-square overflow-hidden bg-surface-container-high relative group">
-        <img
-          class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-          alt="Close-up artistic shot of a golden saxophone with warm dramatic lighting"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaBk_-idMFSi2iqXIqtEbu6eOD6FD_BqChdgmwQu4lxP78Wt0Esm_ODEuqpEGzeW-uZCQ-H4-wp_MgECrydE8I62cXEAGagClm0wQTrkPl6hfvNwG-xAGUOO76C4Hwcb4HuWifkGs3_W9UZ2prSt9tmjWOwELUitSvFiTUTEetTljYp_Zkn-2k17JWD9AMjfkkCn6hIPSbOsboklLqfpgmHxI7rluP61KWv8dpPbXVfaLejDhxEW6HWQ"
-        />
-        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-          <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1">play_circle</span>
-        </div>
+  <div data-news-carousel class="relative overflow-hidden rounded-[10px]">
+  <div data-news-track class="flex transition-transform duration-700 ease-out will-change-transform">
+  <a
+    href="https://college.berklee.edu/admissions/undergraduate/people/diego-herrera"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="scroll-reveal group grid md:grid-cols-[minmax(280px,0.85fr)_1.15fr] min-w-full overflow-hidden rounded-[10px] bg-surface-container-low border border-outline-variant/30 hover:border-primary/60 shadow-2xl transition-colors duration-300"
+  >
+    <div class="relative min-h-[340px] md:min-h-[440px] overflow-hidden bg-surface-container-high">
+      <img
+        src="/news/20250904_DiegoHerrera_KellyDavidson_0273.jpg"
+        alt="Diego Herrera at Berklee College of Music"
+        loading="lazy"
+        class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
+    </div>
+
+    <div class="flex flex-col justify-center p-7 md:p-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1">school</span>
+        <span class="font-label-md text-[11px] text-primary uppercase tracking-[0.2em]">Berklee College of Music · Class of 2026</span>
       </div>
-      <h3 class="font-headline-md text-headline-md mb-2 text-on-surface">Midnight Blue</h3>
-      <p class="font-label-md text-label-md text-on-surface-variant mb-6">Original Composition &bull; 2024</p>
-      <div class="h-[80px] bg-black/40 rounded flex items-center justify-center text-on-surface-variant italic text-sm">
-        Spotify Embed Placeholder
+      <h3 class="font-headline-lg text-[30px] md:text-[42px] leading-tight text-on-surface mb-5">
+        Berklee Student Ambassador
+      </h3>
+      <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-xl">
+        Diego Herrera represents the Berklee student community as a College of Music Student Ambassador.
+      </p>
+      <span class="mt-8 inline-flex items-center gap-2 font-label-md text-label-md text-primary uppercase tracking-widest">
+        View official profile
+        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">open_in_new</span>
+      </span>
+    </div>
+  </a>
+
+  <a
+    href="https://larepublica.pe/sociedad/2025/01/07/diego-herrera-el-inmigrante-peruano-que-hace-brillar-nuestra-musica-en-ee-uu-tenia-ese-hambre-evat-159082"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="scroll-reveal group grid md:grid-cols-[1.15fr_minmax(280px,0.85fr)] min-w-full overflow-hidden rounded-[10px] bg-surface-container-low border border-outline-variant/30 hover:border-primary/60 shadow-2xl transition-colors duration-300"
+  >
+    <div class="flex flex-col justify-center p-7 md:p-12 order-2 md:order-1">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1">newspaper</span>
+        <span class="font-label-md text-[11px] text-primary uppercase tracking-[0.2em]">La República · January 7, 2025</span>
+      </div>
+      <h3 class="font-headline-lg text-[28px] md:text-[38px] leading-tight text-on-surface mb-5">
+        Diego Herrera, the Peruvian immigrant making our music shine in the U.S.: “I had that hunger”
+      </h3>
+      <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-xl">
+        From Boston, the Peruvian saxophonist brings Afro-Peruvian rhythms and jazz to audiences around the world.
+      </p>
+      <span class="mt-8 inline-flex items-center gap-2 font-label-md text-label-md text-primary uppercase tracking-widest">
+        Read full interview
+        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">open_in_new</span>
+      </span>
+    </div>
+
+    <div class="relative min-h-[320px] md:min-h-[440px] overflow-hidden bg-surface-container-high order-1 md:order-2">
+      <img
+        src="/news/inmigrante-brillar-musica.webp"
+        alt="Diego Herrera featured by La República"
+        loading="lazy"
+        class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
+    </div>
+  </a>
+  </div>
+  </div>
+
+  <div class="flex items-center justify-between gap-5 mt-6">
+    <div class="flex items-center gap-4 min-w-0">
+      <span class="font-label-md text-[11px] text-on-surface-variant tracking-widest whitespace-nowrap">
+        <span data-news-current class="text-primary">01</span> / 02
+      </span>
+      <div data-news-dots class="flex items-center gap-2" aria-label="News carousel navigation">
+        <button type="button" data-news-dot="0" class="h-1 w-8 rounded-full bg-primary transition-all" aria-label="News 1"></button>
+        <button type="button" data-news-dot="1" class="h-1 w-3 rounded-full bg-white/25 transition-all" aria-label="News 2"></button>
       </div>
     </div>
 
-    <div class="scroll-reveal spotify-card-hover bg-surface-container-low p-6 border-t-2 border-primary shadow-2xl">
-      <div class="mb-6 aspect-square overflow-hidden bg-surface-container-high relative group">
-        <img
-          class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-          alt="Atmospheric abstract jazz photography"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg9L1wM7nyjIu-Ev1PL3w0JTlcJL0_3YkkgzKF3vSPDYVAEuEhq5JpaCh5woJTp3l8NKFRUiTUXfTlR_I4MJibjx313hNNhZTWPADLpjxhSV-5gMyv-tjGMrYlsLRa0dAfk4mkDoxl09QiFNfLo96KTAAUFRAqaknRbuQefC5njtoJKkvpriefzGsu2trm5ixCFNI0tUoDsMFmnEBI70pZAIwZuv5KLmztcDZEovQFxKlePtViW7cE2g"
-        />
-        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-          <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1">play_circle</span>
-        </div>
-      </div>
-      <h3 class="font-headline-md text-headline-md mb-2 text-on-surface">Harlem Echoes</h3>
-      <p class="font-label-md text-label-md text-on-surface-variant mb-6">Live Recording &bull; 2023</p>
-      <div class="h-[80px] bg-black/40 rounded flex items-center justify-center text-on-surface-variant italic text-sm">
-        Spotify Embed Placeholder
-      </div>
-    </div>
-
-    <div class="scroll-reveal spotify-card-hover bg-surface-container-low p-6 border-t-2 border-primary-container shadow-2xl">
-      <div class="mb-6 aspect-square overflow-hidden bg-surface-container-high relative group">
-        <img
-          class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-          alt="A portrait of a male saxophonist"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSqqa0ATJTf66poBvPHlonZTlzObYMqo_2YEeXod-0AcC543nhcVMX2Y9R4edbtcqD6H_ylG2dJWBo4XobFyCCcHXMnr0j_NI6uRSfIgdFNQJwu6R_oFnSx4hNhFajpbPGtqC-fkTF1xliHzfmhCgVPjBTOpWelnaG1SUuAOKFCSX57UatzdN9Ka0QWnGgJZbgGdQFB94CxBoojpXAr5ZeDVNlZ-v0K3FxNnG4j-NcqJgz-xK6T_CBBw"
-        />
-        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-          <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1">play_circle</span>
-        </div>
-      </div>
-      <h3 class="font-headline-md text-headline-md mb-2 text-on-surface">Velvet Nocturne</h3>
-      <p class="font-label-md text-label-md text-on-surface-variant mb-6">Collaboration &bull; 2023</p>
-      <div class="h-[80px] bg-black/40 rounded flex items-center justify-center text-on-surface-variant italic text-sm">
-        Spotify Embed Placeholder
-      </div>
+    <div class="flex items-center gap-2">
+      <button type="button" data-news-prev aria-label="Previous news" class="w-10 h-10 rounded-[6px] border border-outline-variant/50 text-on-surface-variant hover:text-primary hover:border-primary/60 transition-colors flex items-center justify-center">
+        <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+      </button>
+      <button type="button" data-news-next aria-label="Next news" class="w-10 h-10 rounded-[6px] border border-outline-variant/50 text-on-surface-variant hover:text-primary hover:border-primary/60 transition-colors flex items-center justify-center">
+        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+      </button>
     </div>
   </div>
 </section>
+
+<script>
+  const newsCarousel = document.querySelector<HTMLElement>('[data-news-carousel]');
+  const newsTrack = document.querySelector<HTMLElement>('[data-news-track]');
+  const newsSlides = newsTrack ? Array.from(newsTrack.querySelectorAll<HTMLElement>('a')) : [];
+  const newsDots = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-news-dot]'));
+  const newsCurrent = document.querySelector<HTMLElement>('[data-news-current]');
+  const newsPrevious = document.querySelector<HTMLButtonElement>('[data-news-prev]');
+  const newsNext = document.querySelector<HTMLButtonElement>('[data-news-next]');
+  const reduceNewsMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let currentNews = 0;
+  let newsAutoplay: ReturnType<typeof setInterval>;
+
+  const showNews = (index: number) => {
+    if (!newsTrack || newsSlides.length === 0) return;
+    currentNews = (index + newsSlides.length) % newsSlides.length;
+    newsTrack.style.transform = `translateX(-${currentNews * 100}%)`;
+    if (newsCurrent) newsCurrent.textContent = String(currentNews + 1).padStart(2, '0');
+
+    newsDots.forEach((dot, dotIndex) => {
+      const active = dotIndex === currentNews;
+      dot.classList.toggle('w-8', active);
+      dot.classList.toggle('bg-primary', active);
+      dot.classList.toggle('w-3', !active);
+      dot.classList.toggle('bg-white/25', !active);
+    });
+  };
+
+  const stopNewsAutoplay = () => window.clearInterval(newsAutoplay);
+  const startNewsAutoplay = () => {
+    if (reduceNewsMotion || newsSlides.length < 2) return;
+    stopNewsAutoplay();
+    newsAutoplay = window.setInterval(() => showNews(currentNews + 1), 6000);
+  };
+
+  newsDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      showNews(Number(dot.dataset.newsDot));
+      startNewsAutoplay();
+    });
+  });
+
+  newsPrevious?.addEventListener('click', () => {
+    showNews(currentNews - 1);
+    startNewsAutoplay();
+  });
+
+  newsNext?.addEventListener('click', () => {
+    showNews(currentNews + 1);
+    startNewsAutoplay();
+  });
+
+  let newsTouchStart = 0;
+  newsCarousel?.addEventListener('touchstart', (event) => {
+    newsTouchStart = event.touches[0].clientX;
+    stopNewsAutoplay();
+  }, { passive: true });
+
+  newsCarousel?.addEventListener('touchend', (event) => {
+    const distance = newsTouchStart - event.changedTouches[0].clientX;
+    if (Math.abs(distance) > 40) showNews(currentNews + (distance > 0 ? 1 : -1));
+    startNewsAutoplay();
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopNewsAutoplay();
+    else startNewsAutoplay();
+  });
+
+  showNews(0);
+  startNewsAutoplay();
+</script>
