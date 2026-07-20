@@ -6,6 +6,8 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Manrope', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #921f5d #131313;
   }
 
   body,
@@ -16,8 +18,35 @@
     font-family: 'Manrope', sans-serif;
   }
 
+  button {
+    border-radius: 6px;
+  }
+
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #131313;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #b42c76 0%, #700638 100%);
+    border: 2px solid #131313;
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #d54791 0%, #921f5d 100%);
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: #131313;
   }
 }
 
