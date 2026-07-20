@@ -105,6 +105,20 @@ const Navbar = () => {
         </button>
       </nav>
 
+      {/* Desktop: back to top */}
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label={language === 'es' ? 'Volver al inicio' : 'Back to top'}
+        className={`hidden md:flex fixed right-6 bottom-6 z-50 w-11 h-11 items-center justify-center rounded-full bg-surface-container/90 backdrop-blur-xl border border-outline-variant/50 text-on-surface-variant hover:text-primary hover:border-primary/60 hover:-translate-y-1 shadow-xl shadow-black/30 transition-all duration-300 ${
+          scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+      >
+        <span className="material-symbols-outlined text-[22px]" aria-hidden="true">
+          arrow_upward
+        </span>
+      </button>
+
       {/* ── Mobile: bottom navigation bar ────────────────────────── */}
       <nav
         aria-label={language === 'es' ? 'Navegación móvil' : 'Mobile navigation'}
