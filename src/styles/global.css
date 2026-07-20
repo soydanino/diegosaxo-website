@@ -8,7 +8,11 @@
     font-family: 'Manrope', sans-serif;
   }
 
-  body {
+  body,
+  button,
+  input,
+  textarea,
+  select {
     font-family: 'Manrope', sans-serif;
   }
 
